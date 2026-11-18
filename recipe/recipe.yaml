@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: zarr-metadata
-  version: "0.8.0"
+  version: "0.9.0"
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/zarr_metadata-${{ version }}.tar.gz
-  sha256: cd91855317118014f84c670a6f73c568cafdc781750e4f071651084a73b5c71f
+  sha256: 7c7612ccb0177f2d1abb05cc38cdb89a54f31558edccf78d848a1c68d95415f7
 
 build:
   number: 0
