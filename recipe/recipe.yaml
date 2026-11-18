@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   name: zarr-metadata
-  version: "0.6.0"
+  version: "0.7.0"
 
 package:
   name: ${{ name|lower }}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/zarr_metadata-${{ version }}.tar.gz
-  sha256: 4462dc91cdb8c19c370bcd548096125591359579586f42de789dc495a33119d0
+  sha256: 26966fce40d8562569d21eeb0f18cf4db28932be94b1772eafc8c4f0b7e110f1
 
 build:
   number: 0
@@ -28,6 +28,9 @@ requirements:
     - python >=${{ python_min }}
     - annotated-types >=0.6
     - typing_extensions >=4.16
+  run_constraints:
+    # The `testing` extra (zarr_metadata.testing.strategies).
+    - hypothesis >=6.85
 
 tests:
   - python:
@@ -42,13 +45,16 @@ tests:
   - files:
       source:
         - tests/
+        # test_api_docs.py checks that every public module has a page in docs/api/.
+        - docs/
     requirements:
       run:
         - python ${{ python_min }}.*
         - pytest
         - pydantic >=2.13
         - jsonschema
-        - hypothesis
+        - hypothesis >=6.85
+        - griffelib
     script:
       # test_docs.py needs pytest-examples, which is not on conda-forge.
       - python -m pytest tests --ignore=tests/test_docs.py -q -p no:cacheprovider
